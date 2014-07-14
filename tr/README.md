@@ -1,4 +1,4 @@
-SerenityGuide
-=============
+Serenity Kılavuzu
+=================
 
-Guide for Serenity, generated with GitBook.IO
+
