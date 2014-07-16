@@ -82,15 +82,21 @@ Değerler önbelleğe AbsoluteExpiration ile (belli bir tarihte expire olacak ş
 
 ### Kullanıcı Profili Önbellekleme Örneği
 
-Bir sitemizde birkaç sorgu ile oluşturan kullanıcı profil sayfası bulunsun. Bu sayfayı üretmek için gerekli bilgileri veritabanından yükleyip CachedProfile adlı bir objeye doldurabildiğimizi varsayalım.
+Bir sitemizde birkaç sorgu ile oluşturan kullanıcı profil sayfası bulunsun. Bu sayfayı üretmek için gerekli bilgileri veritabanından yükleyip CachedProfile adlı bir objeye doldurabildiğimizi varsayalım:
 
 ```cs
 public class CachedProfile
 {
 	public string Name { get; set; }
-	public string 
+	public List<CachedFriend> Friends { get; set; }
+	public List<CachedAlbum> Albums { get; set; }
+	...
 }
+```
 
+Veritabanından CachedProfile objesi üreten fonksiyonumuzu LocalCache.Get metodu ile kullanarak, profillerin önbelleklenmesini çok basit bir şekilde sağlayabiliriz:
+
+```cs
 public CachedProfile GetProfile(int profileId)
 {
 	return LocalCache.Get<CachedProfile>(
