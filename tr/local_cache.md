@@ -66,7 +66,7 @@ TItem referans tipinde olmalıdır.
 
 HttpRuntime.Cache'den verilen anahtara sahip değeri okur. 
 
-![LocalCache.Get Flow Diagram](img/local_cache_get.png)
+![LocalCache.Get Flow Diagram](img/local_cache_get.png?v4)
 
 * Eğer değer DBNull.Value ise sonuç null olarak döndürülür.
 
@@ -79,3 +79,29 @@ HttpRuntime.Cache'den verilen anahtara sahip değeri okur.
 TItem referans tipinde olmalıdır.
 
 Değerler önbelleğe AbsoluteExpiration ile (belli bir tarihte expire olacak şekilde) eklenir. SlidingExpiration kullanılmaz.
+
+### Kullanıcı Profili Önbellekleme Örneği
+
+Bir sitemizde birkaç sorgu ile oluşturan kullanıcı profil sayfası bulunsun. Bu sayfayı üretmek için gerekli bilgileri veritabanından yükleyip CachedProfile adlı bir objeye doldurabildiğimizi varsayalım.
+
+```cs
+public class CachedProfile
+{
+	public string Name { get; set; }
+	public string 
+}
+
+public CachedProfile GetProfile(int profileId)
+{
+	return LocalCache.Get<CachedProfile>(
+		cacheKey: "Profile:" + profileId, 
+		expiration: TimeSpan.FromHours(1),
+		loader: delegate {
+			using (var connection = new SqlConnection("..."))
+			{
+				// load profile by profileId from DB
+			}
+		}
+	);
+}
+```
