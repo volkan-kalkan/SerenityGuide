@@ -66,7 +66,7 @@ TItem referans tipinde olmalıdır.
 
 HttpRuntime.Cache'den verilen anahtara sahip değeri okur. 
 
-![LocalCache.Get Flow Diagram][../img/local_cache_get.png]
+![LocalCache.Get Flow Diagram][img/local_cache_get.png]
 
 * Eğer değer DBNull.Value ise sonuç null olarak döndürülür.
 
