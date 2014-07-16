@@ -31,7 +31,7 @@ Dinamik SQL SELECT sorguları hazırlamanız için StringBuilder benzeri bir nes
 
 ## Basit Bir SELECT Sorgusu
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -90,7 +90,7 @@ SELECT Firstname, Surname FROM People ORDER BY Age
 
 Örnek koddaki “From”, “OrderBy” ve “Select” içeren satırları hangi sırada yazarsak yazalım sonuç değişmeyecekti. Ancak aşağıdaki gibi Select çağrılarının sırası değişirse yani Surname alanını Firstname’den önce seçseydik...
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -125,7 +125,7 @@ Yukarıdaki kod listelerine dikkatli bakınca sorgumuzu düzenlediğimiz her sat
 
 SqlQuery’nin, method chaining (zincirleme metod çağrımı) özelliğinden faydalanarak, bu sorguyu daha okunaklı ve kolay bir şekilde yazabiliriz: 
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -151,7 +151,7 @@ jQuery yada LINQ kullanıyorsanız bu zincirleme çağırım şekline aşina olm
 
 İstersek “query” yerel değişkenininden de kurtulabiliriz:
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -174,7 +174,7 @@ namespace Samples
 
 ##Select Metodu
 
-```cs
+```csharp
 public SqlQuery Select(string expression)
 ```
 
@@ -182,13 +182,13 @@ public SqlQuery Select(string expression)
 
 Tek bir çağırımda, birden fazla alan seçmek isterseniz, şu overload'ı kullanabilirsiniz:
 
-```cs
+```csharp
 public SqlQuery Select(params string[] expressions)
 ```
 
 Örneğin:
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -213,11 +213,11 @@ SELECT Firstname, Surname, Age, Gender FROM People
 
 Seçtiğiniz bir alana kısa ad (column alias) atamak isterseniz SelectAs metodundan faydalanabilirsiniz:
 
-```cs
+```csharp
 public SqlQuery SelectAs(string expression, string alias)
 ```
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -243,7 +243,7 @@ SELECT (Firstname + Surname) Fullname FROM People
 
 ##From Metodu
 
-```cs
+```csharp
 public SqlQuery From(string table)
 ```
 
@@ -251,7 +251,7 @@ SqlQuery’nin From metodu, sorgunun FROM ifadesini üretmek için en az (ve gen
 
 İkinci bir kez çağırırsanız, verdiğiniz tablo ismi, sorgunun FROM kısmına, asıl tablo adıyla aralarına virgül konarak eklenir. Bu durumda da CROSS JOIN yapmış olursunuz.
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -284,7 +284,7 @@ SELECT Firstname, Surname FROM People, City, Country ORDER BY Age
 
 Sorgularımız uzadıkça ve içindeki JOIN sayısı arttıkça, hem alan adı çakışmalarını engellemek, hem de istenen alanlara daha kolay ulaşmak için, kullandığımız tablolara aşağıdaki gibi kısa adlar (alias) vermeye başlarız. 
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -317,13 +317,13 @@ Görüleceği üzere alanları seçerken de başlarına tablolarına atadığım
 
 Sorgu içinde kullandığımız bu kısa adları, dilersek SqlQuery ile birlikte kullanabileceğimiz Alias nesnesleri olarak ta tanımlayabiliriz.
 
-```cs
+```csharp
 var p = new Alias("Person", "p");
 ```
 
 Alias aslında bir string e verdiğiniz ad gibidir. Fakat string ten farklı olarak, SQL ifadelerinde kullanacabileceğimiz “kısa ad”.”alan adı” şeklinde metinleri, "+" operatörü aracılığıyla üretmemize yardımcı olur:
 
-```cs
+```csharp
 p + "Surname"
 ```
 
@@ -335,7 +335,7 @@ Bu işlem C#'ın "+" operatörünün overload edilmesi sayesinde gerçekleşmekt
 
 Sorgumuzu Alias nesnesinden faydalanarak düzenleyelim:
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -372,7 +372,7 @@ Görüldüğü gibi sonuç aynı, ancak yazdığımız kod biraz daha uzadı. Pe
 
 Şu haliyle değerlendirildiğinde avantajı ilk bakışta görülmeyebilir. Ancak aşağıdaki koddaki gibi alan isimlerini tutan sabitlerimiz olsaydı…
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -413,7 +413,7 @@ Tabi örnekteki gibi, her sorguyu yazmadan önce, alan isimlerini sabit olarak t
 
 Tabloya özel alan adı tanımlarınızı, entity yapısı kullanmayacaksanız, aşağıdaki örnekteki gibi de yapabilirsiniz:
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -482,7 +482,7 @@ Bu sayede alan adlarını tutan sınıflarımızı bir kez tanımladık ve tüm 
 
 Yukarıdaki örneklerde ayrıca SqlQuery.From'un aşağıdaki gibi Alias parametresi alan overload'ından faydalandık:
 
-```cs
+```csharp
 public SqlQuery From(Alias alias)
 ```
 
@@ -491,14 +491,14 @@ Bu fonksiyon çağrıldığında, SQL sorgusunun FROM ifadesine, alias oluşturu
 
 Eğer alias'ınızı oluştururken bir tablo adı belirtmediyseniz (new Alias("c") gibi) şu overload'ı kullanabilirsiniz:
 
-```cs
+```csharp
 public SqlQuery From(string table, Alias alias)
 ```
 
 ##With Uzantı (Extension) Metodu
 Örneğimizde, kısa adlarımızı (alias) önceden değişken olarak tanımlamamız gerekli oldu. Eğer bunu SQL query'nin zincirleme akışını bozmadan yapmak isteseydik, With extension metodundan faydalanabilirdik:
 
-```cs
+```csharp
     public static string UsingWithExtension()
     {
         return new SqlQuery().With(
@@ -524,7 +524,7 @@ Inline değişken tanımlamak, sorgumuzu daha akışkan hale getirse de, bir mik
 
 ##OrderBy Metodu
 
-```cs
+```csharp
 public SqlQuery OrderBy(string expression, bool desc = false)
 ```
 
@@ -533,11 +533,11 @@ OrderBy metodu da Select gibi bir alan adı ya da ifadesiyle çağrılabilir. "D
 OrderBy metodu, verdiğiniz ifadeleri ORDER BY deyiminin sonuna ekler. Bazen alanı listenin başına getirmek te isteyebiliriz. Örneğin çeşitli alanlara göre sıralanmış bir sorgu hazırladıktan sonra, kullanıcı arayüzünde tıklanan kolona göre sıralamanın değişmesi (önceki sıralamayı tümüyle kaybetmeden) gerekebilir. Bunun için SqlQuery, OrderByFirst metodunu sağlar:
 
 
-```cs
+```csharp
 public SqlQuery OrderByFirst(string expression, bool desc = false)
 ```
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -572,13 +572,13 @@ SELECT Firstname, Surname FROM Person ORDER BY PersonID, Age
 
 ##Distinct Metodu
 
-```cs
+```csharp
 public SqlQuery Distinct(bool distinct)
 ```
 
 DISTINCT deyimini içeren bir sorgu üretmek istediğinizde bu metodu kullanabilirsiniz:
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -604,14 +604,14 @@ SELECT DISTINCT Firstname FROM Person
 
 ##Group By Metodu
 
-```cs
+```csharp
 public SqlQuery GroupBy(string expression)
 ```
 
 GroupBy metodu bir alan adı ya da ifadesiyle çağrılır ve bu ifadeyi sorgunun GROUP BY deyiminin sonuna ekler.
 
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -639,14 +639,14 @@ SELECT Firstname, Lastname, Count(*) FROM Person GROUP BY Firstname, LastName
 
 ##Having Metodu
 
-```cs
+```csharp
 public SqlQuery Having(string expression)
 ```
 
 GroupBy metodu ile birlikte kullanabileceğiniz Having metodu, mantıksal bir ifadeyle çağrılır ve bu ifadeyi sorgunun HAVING deyiminin sonuna ekler.
 
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -674,7 +674,7 @@ SELECT Firstname, Lastname, Count(*) FROM Person GROUP BY Firstname, LastName HA
 
 ##Sayfalama İşlemleri (SKIP / TAKE / TOP / LIMIT)
 
-```cs
+```csharp
 public SqlQuery Skip(int skipRows)
 
 public SqlQuery Take(int rowCount)
@@ -682,7 +682,7 @@ public SqlQuery Take(int rowCount)
 
 SqlQuery, LINQ'de Take ve Skip olarak geçen sayfalama metodlarını destekler. Bunlardan Take, Microsoft SQL Server'da TOP'a karşılık gelirken, SKIP'in direk bir karşılığı olmadığından SqlQuery, ROW_NUMBER() fonksiyonundan faydalanır. Bu nedenle SQL server için SKIP kullanmak istediğinizde, sorgunuzda en az bir ORDER BY ifadesinin de olması gerekir.
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -716,13 +716,13 @@ Sayfalama işlemlerindeki örneğimizde, SqlQuery, Microsoft SQL Server 2008'e u
 
 Dialect metodu ile SQL query nin kullandığı DIALECT ya da sunucu tipini değiştirebiliriz:
 
-```cs
+```csharp
 public SqlQuery Dialect(SqlDialect dialect)
 ```
 
 Şu an için aşağıdaki sunucu tipleri desteklenmektedir:
 
-```cs
+```csharp
 [Flags]
 public enum SqlDialect
 {
@@ -738,7 +738,7 @@ public enum SqlDialect
 
 Örneğin SqlDialect.MsSql2012'yi seçip, SQL Server 2012 ile gelen OFFSET FETCH deyimlerinden faydalanmak isteseydik:
 
-```cs
+```csharp
 namespace Samples
 {
     using Serenity;
@@ -776,7 +776,7 @@ SqlQuery'nin Sunucu/Dialect desteği henüz mükemmel olmasa da, temel işlemler
 
 Uygulamanızda tek tipte sunucu kullanıyorsanız, her sorgunuzda, dialect ayarlamak istemeyebilirsiniz. Bunun için SqlSettings.CurrentDialect'i değiştirmelisiniz. Örneğin aşağıdaki kodu program başlangıcında, ya da global.asax dosyanızdan çağırabilirsiniz: 
 
-```cs
+```csharp
 SqlSettings.CurrentDialect = SqlDialect.MsSql2012;
 ```
 

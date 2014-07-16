@@ -1,4 +1,5 @@
 SerenityGuide
 =============
 
-Guide for Serenity, generated with GitBook.IO
+Guide for Serenity
+
