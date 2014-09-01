@@ -94,9 +94,6 @@ Aksi taktirde jQuery validate free edilen objeler için garip script hataları o
 Aşağıdakine benzer kod bulunup:
 
 ```js
-Aşağıdakine benzer kod bulunup:
-
-```js
     function handleHeaderMouseEnter(e, args) {
       var column = args.column,
           $node = $(e.target).closest(".slick-header-column");
