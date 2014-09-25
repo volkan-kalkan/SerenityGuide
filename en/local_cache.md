@@ -1,16 +1,28 @@
+# ILocalCache Interface
+[**namespace**: *Serenity.Abstrations*] - [**assembly**: *Serenity.Core*]
+
+Defines a basic interface to work with the local cache.
+
+The term *local* means that cached items are hold in local memory (thus there is no serialization involved).
+
+```cs
+public interface ILocalCache
+{
+    void Add(string key, object value, TimeSpan expiration);
+    TItem Get<TItem>(string key);
+    object Remove(string key);
+    void RemoveAll();
+}
+```
+
 # LocalCache Static Class
 
 [**namespace**: *Serenity*] - [**assembly**: *Serenity.Core*]
 
-A static class that contains shortcuts to work easier with the *local cache*.
+A static class that contains shortcuts to work easier with the *local cache* (current ILocalCache provider).
 
-The term *local* means that cached items are hold in local memory (thus there is no serialization involved).
-
-*LocalCache* class in *Serenity* might refer to any cache that implements `Serenity.Abstractions.ICache` interface.
 
 A default implementation (`Serenity.Caching.HttpRuntimeCache`) that uses `System.Web.Cache` exists in `Serenity.Web` assembly.
-
-
 
 
 ```cs
@@ -38,18 +50,19 @@ namespace Serenity
 
 ### LocalCache.AddToCacheWithExpiration
 
-Önbelleğe bir değeri belli bir süre kalmak üzere eklemek istediğinizde bu fonksiyonu kullanabilirsiniz.
+Use this method to add a value to local cache with an expiration time.
 
 ```cs
 LocalCache.AddToCacheWithExpiration("someKey", "someValue",
 	TimeSpan.FromMinutes(5));
 ```
 
-Bu fonksiyon, HttpRuntime.Cache.Insert metodunu kullanır (HttpRuntime.Cache.Add metodunu hiçbir zaman kullanmayınız, bu yordam eğer cache te belirtilen anahtar var ise değerini güncellemez ve bir hata da vermez, Microsoft'tan bir mühendislik harikası)
+This method, in its default implementation, uses HttpRuntime.Cache.Insert method.
+> Avoid HttpRuntime.Cache.Add method, as it doesn't update value if there is already a key with same key in the cache, and it doesn't even raise an error so you won't notice anything. A mere engineering gem from ASP.NET)
 
-Değerler önbelleğe AbsoluteExpiration (belli bir tarihte expire olacak şekilde) ile eklenir.
+Values are added to cache with absolute expiration (thus they expire at a certain time, not sliding expiration).
 
-### LocalCache.Remove Fonksiyonu
+### LocalCache.Remove Function
 
 Daha önce önbelleğe eklenmiş bir değeri önbellekten siler (yoksa hata vermez).
 
