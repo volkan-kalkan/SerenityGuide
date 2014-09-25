@@ -12,7 +12,7 @@ Dinamik SQL SELECT sorguları hazırlamanız için StringBuilder benzeri bir nes
 
 * Alan listesinin arasına virgül koymayı, ya da WHERE deyimindeki koşulların arasına AND koymayı unutmak gibi basit hatalar yapmazsınız.
 
-* SELECT, FROM, WHERE gibi deyimleri kullandığınız sıranın hiçbir önemi yoktur. Sorguyu metne çevirirken bu sorgu kısımları olması gereken yere konumlandırılır. 
+* SELECT, FROM, WHERE gibi deyimleri kullandığınız sıranın hiçbir önemi yoktur. Sorguyu metne çevirirken bu sorgu kısımları olması gereken yere konumlandırılır.
 
 * Yine SELECT, WHERE, ORDER BY gibi deyimleri istediğiniz sayıda çağırabilirsiniz. Mesela önce temel sorgunuzu hazırlayıp, devamındaki satırlarda verinin kullanıcının istediği sırada (mesela grid’de başlığına tıkladığı kolon sırasında) gelmesi için ikinci bir ORDER BY ifadesi, ya da belli metni içeren kayıtları süzmek için ikinci bir WHERE koşulu ekleyebilirsiniz. Bu sizi hataya müsait birçok IF bloğu yazmaktan kurtarır.
 
@@ -121,9 +121,9 @@ SELECT Surname, Firstname FROM People ORDER BY Age
 
 ##Zincirleme Metod Çağrımı (Method Chaining)
 
-Yukarıdaki kod listelerine dikkatli bakınca sorgumuzu düzenlediğimiz her satıra “query.” ile başladığımızı ve bunun göze pek de hoş gelmediğini farkedebilirsiniz. 
+Yukarıdaki kod listelerine dikkatli bakınca sorgumuzu düzenlediğimiz her satıra “query.” ile başladığımızı ve bunun göze pek de hoş gelmediğini farkedebilirsiniz.
 
-SqlQuery’nin, method chaining (zincirleme metod çağrımı) özelliğinden faydalanarak, bu sorguyu daha okunaklı ve kolay bir şekilde yazabiliriz: 
+SqlQuery’nin, method chaining (zincirleme metod çağrımı) özelliğinden faydalanarak, bu sorguyu daha okunaklı ve kolay bir şekilde yazabiliriz:
 
 ```csharp
 namespace Samples
@@ -282,7 +282,7 @@ SELECT Firstname, Surname FROM People, City, Country ORDER BY Age
 
 ##Alias Nesnesi ve SqlQuery ile Kullanımı
 
-Sorgularımız uzadıkça ve içindeki JOIN sayısı arttıkça, hem alan adı çakışmalarını engellemek, hem de istenen alanlara daha kolay ulaşmak için, kullandığımız tablolara aşağıdaki gibi kısa adlar (alias) vermeye başlarız. 
+Sorgularımız uzadıkça ve içindeki JOIN sayısı arttıkça, hem alan adı çakışmalarını engellemek, hem de istenen alanlara daha kolay ulaşmak için, kullandığımız tablolara aşağıdaki gibi kısa adlar (alias) vermeye başlarız.
 
 ```csharp
 namespace Samples
@@ -329,7 +329,7 @@ p + "Surname"
 
 >p.Surname
 
-Bu işlem C#'ın "+" operatörünün overload edilmesi sayesinde gerçekleşmektedir. Bir alias'ı bir alan adı ile topladığınızda, alias'ın kısa adı ve alan adı, aralarına "." konarak birleştirilir 
+Bu işlem C#'ın "+" operatörünün overload edilmesi sayesinde gerçekleşmektedir. Bir alias'ı bir alan adı ile topladığınızda, alias'ın kısa adı ve alan adı, aralarına "." konarak birleştirilir
 
 > ne yazık ki C#'ın member access operatorünü (".") overload edemiyoruz, bu yüzden "+" kullanılmak durumunda.
 
@@ -423,9 +423,9 @@ namespace Samples
     {
         public class PeopleAlias : Alias
         {
-            public PeopleAlias(string alias) 
-                : base(alias) 
-            { 
+            public PeopleAlias(string alias)
+                : base(alias)
+            {
             }
 
             public string ID { get { return this["ID"]; } }
@@ -502,9 +502,9 @@ public SqlQuery From(string table, Alias alias)
     public static string UsingWithExtension()
     {
         return new SqlQuery().With(
-            new Alias("People", "p"), 
-            new Alias("City", "c"), 
-            new Alias("Country", "o"), 
+            new Alias("People", "p"),
+            new Alias("City", "c"),
+            new Alias("Country", "o"),
             (me, p, c, o) => me
                 .Select(p + Firstname)
                 .Select(p + Surname)
@@ -599,7 +599,7 @@ namespace Samples
 ```
 
 ```sql
-SELECT DISTINCT Firstname FROM Person 
+SELECT DISTINCT Firstname FROM Person
 ```
 
 ##Group By Metodu
@@ -762,7 +762,7 @@ namespace Samples
 ```
 
 ```sql
-SELECT Firstname, Lastname FROM Person ORDER BY PersonId 
+SELECT Firstname, Lastname FROM Person ORDER BY PersonId
 OFFSET 300 ROWS FETCH NEXT 100 ROWS ONLY
 ```
 
@@ -774,7 +774,7 @@ SELECT FIRST 100 SKIP 300 Firstname, Lastname FROM Person ORDER BY PersonId
 
 SqlQuery'nin Sunucu/Dialect desteği henüz mükemmel olmasa da, temel işlemlerde sorun çıkarmayacak düzeydedir.
 
-Uygulamanızda tek tipte sunucu kullanıyorsanız, her sorgunuzda, dialect ayarlamak istemeyebilirsiniz. Bunun için SqlSettings.CurrentDialect'i değiştirmelisiniz. Örneğin aşağıdaki kodu program başlangıcında, ya da global.asax dosyanızdan çağırabilirsiniz: 
+Uygulamanızda tek tipte sunucu kullanıyorsanız, her sorgunuzda, dialect ayarlamak istemeyebilirsiniz. Bunun için SqlSettings.CurrentDialect'i değiştirmelisiniz. Örneğin aşağıdaki kodu program başlangıcında, ya da global.asax dosyanızdan çağırabilirsiniz:
 
 ```csharp
 SqlSettings.CurrentDialect = SqlDialect.MsSql2012;

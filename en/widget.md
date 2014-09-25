@@ -1,5 +1,5 @@
 # ScriptContext Class
-C#, doesn't support global methods, so jQuery's `$` function can't be used as simply in Saltarelle as it is in Javascript. 
+C#, doesn't support global methods, so jQuery's `$` function can't be used as simply in Saltarelle as it is in Javascript.
 
 A simple expression like `$('#SomeElementId)` in Javascript corresponds to Saltarelle C# code `jQuery.Select("#SomeElementId")`.
 
@@ -38,7 +38,7 @@ Serenity Script UI layer's component classes (control) are based on a system tha
 >
 > http://msdn.microsoft.com/en-us/library/hh404085.aspx
 
-Widget, is an object that is attached to an HTML element and extends it with some behaviour. 
+Widget, is an object that is attached to an HTML element and extends it with some behaviour.
 
 For example, IntegerEditor widget, when attached to an INPUT element, makes it easier to enter numbers in the input and validates that the entered number is a correct integer.
 
@@ -57,7 +57,7 @@ namespace MySamples
     public class MyCoolWidget : Widget
     {
         private int fontSize = 10;
-        
+
         public MyCoolWidget(jQueryObject div)
             : base(div)
         {
@@ -107,7 +107,7 @@ Classes derived from Widget can get the element, on which they are created, by t
 public jQueryObject Element { get; }
 ```
 
-This property has type of jQueryObject and returns the element, which is used when the widget is created. In our sample, container DIV element is referenced as `this.Element` in the click handler. 
+This property has type of jQueryObject and returns the element, which is used when the widget is created. In our sample, container DIV element is referenced as `this.Element` in the click handler.
 
 ### HTML Element and Widget *CSS Class*
 
@@ -181,7 +181,7 @@ Only one widget of the same class can be attached to an HTML element.
 An attempt to create a secondary widget of the same class on a element throws the following error:
 
 ```text
-The element already has widget 'MySamples_MyCoolWidget'. 
+The element already has widget 'MySamples_MyCoolWidget'.
 ```
 
 Any number of widgets from different classes can be attached to a single element as long as their behaviour doesn't affect each other.
@@ -217,7 +217,7 @@ If destory operation is not performed correctly, memory leaks may occur in some 
 
 # Widget&lt;TOptions&gt; Generic Class
 
-If a widget requires some additional initialization options, it might be derived from the `Widget<TOptions>` class. 
+If a widget requires some additional initialization options, it might be derived from the `Widget<TOptions>` class.
 
 The options passed to the constructor can be accessed in class methods through the protected field `options`.
 
@@ -243,17 +243,17 @@ public class MyComplexWidget : Widget
 		var toolbar = J("<div>")
         	.Attribute("id", this.UniqueName + "_MyToolbar")
             .AppendTo(div);
-        
+
         var table = J("<table>")
         	.AddClass("myTable")
             .Attribute("id", this.UniqueName + "_MyTable")
             .AppendTo(div);
-            
+
         var header = J("<thead/>").AppendTo(table);
         var body = J("<tbody>").AppendTo(table);
         ...
         ...
-        ...       
+        ...
     }
 }
 ```
@@ -280,7 +280,7 @@ public class MyComplexWidget : TemplatedWidget
 {
 	public MyComplexWidget(jQueryObject div)
     	: base(div)
-    {      
+    {
     }
 }
 ```
@@ -319,7 +319,7 @@ Using this strategy, even if the same widget template is used in a page for more
 
 ## TemplatedWidget.ByID Method
 
-As TemplateWidget appends a unique name to them, the ID attributes in a widget template can't be used to access elements after widget creation. 
+As TemplateWidget appends a unique name to them, the ID attributes in a widget template can't be used to access elements after widget creation.
 
 Widget's unique name and an underscore should be prepended to the original ID attribute in the template to find an element:
 
@@ -349,7 +349,7 @@ public class MyComplexWidget
 
 ## TemplatedWidget.GetTemplateName Method
 
-In the last sample `MyComplexWidget` located its template automatically. 
+In the last sample `MyComplexWidget` located its template automatically.
 
 TemplatedWidget makes use of a convention to find its template (convention based programming). It inserts `Template_` prefix before the class name and searches for a `SCRIPT` element with this ID attribute (`Template_MyComplexWidget`) and uses its HTML content as a template.
 
@@ -395,9 +395,9 @@ public class MyCompleWidget
 
 ## Q.GetTemplate Method and Server Side Templates
 
-Default implementation for `TemplatedWidget.GetTemplate` method calls `GetTemplateName` and searches for a `SCRIPT` element with that ID.  
+Default implementation for `TemplatedWidget.GetTemplate` method calls `GetTemplateName` and searches for a `SCRIPT` element with that ID.
 
-If no such SCRIPT element is found, `Q.GetTemplate` is called with the same ID. 
+If no such SCRIPT element is found, `Q.GetTemplate` is called with the same ID.
 
 An error is thrown if neither returns a result.
 
@@ -414,9 +414,9 @@ For example, we could create a template for MyComplexWidget in a server side fil
 </table>
 ```
 
-Template file name and extension is important while its folder is simply ignored. 
+Template file name and extension is important while its folder is simply ignored.
 
-By using this strategy there would be no need to insert widget templates into the page markup. 
+By using this strategy there would be no need to insert widget templates into the page markup.
 
 Also, as such server side templates are loaded on the first use (*lazy loading*) and cached in the browser and the server, page markup doesn't get polluted with templates for widgets that we might never use in a specific page. Thus, server side templates are favored over inline SCRIPT templates.
 
