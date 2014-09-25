@@ -101,7 +101,7 @@ DİKKAT! Eğer tek bir sunucunuz varsa dağıtık cache kullanmak fayda yerine z
 performans düşecektir.
 ```
 
-Distributed cache'i (dağıtık önbellek) basit bir şekilde uzak bilgisayarlarda konumlandırılmış bir dictionary (sözlük) olarak düşünebilirsiniz. Bu sunucular, (key, value) ikililerini (anahtar/değer) hafızalarında saklarlar ve bu bilgilere mümkün olduğunda hızlı erişmeye imkan tanırlar.
+Distributed cache'i (dağıtık önbellek) basit bir şekilde uzak bilgisayarlarda konumlandırılmış bir dictionary (sözlük) olarak düşünebilirsiniz. Bu sunucular, (key, value) ikililerini (anahtar/değer) hafızalarında saklarlar ve bu bilgilere mümkün olduğunca hızlı erişmeye imkan tanırlar.
 
 Önbelleklenen veri çok fazla olduğunda, tek bir bilgisayarın hafızası bütün key/value ikililerini tutmak için yeterli gelmeyebilir. Bu durumda memcached gibi sunucu tipleri clustering yaparak, verileri sunucular arasında dağıtırlar. Basit bir örnek vermek gerekirse, anahtarların ilk harfine göre clustering yapabilirdiniz. Yani A ile başlayan veriler bir sunucu grubunda, B ile başlayanlar başka bir grupta vs. gibi. (Tabi gerçek uygulama bu kadar basit değil, genelde key'in hash değerine göre bir sınıflandırma yapılıyor)
 
