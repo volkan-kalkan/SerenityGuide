@@ -1,4 +1,8 @@
-# ILocalCache Interface
+## Local Caching
+
+
+
+## ILocalCache Interface
 [**namespace**: *Serenity.Abstrations*] - [**assembly**: *Serenity.Core*]
 
 Defines a basic interface to work with the local cache.
@@ -56,7 +60,7 @@ Dependency.Resolve<ILocalCache>.Remove("someKey");
 
 Removes all items from local cache. Avoid using this except for special situations like unit tests, otherwise performance might suffer.
 
-# LocalCache Static Class
+## LocalCache Static Class
 
 [**namespace**: *Serenity*] - [**assembly**: *Serenity.Core*]
 
